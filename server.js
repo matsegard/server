@@ -1,24 +1,29 @@
 const express = require('express');
-const bodyParser= require('body-parser');
 const app = express();
 const port = 3000;
-const MongoClient = require('mongodb').MongoClient
+const mongoose = require('mongoose');
+require('dotenv/config')
 
-app.use(bodyParser.urlencoded({ extended: true }))
+//Import routes
+const postsRoute = require('./routes/posts');
+const usersRoute = require('./routes/users');
+
+app.use('/posts', postsRoute);
+app.use('/user', usersRoute);
 
 app.get('/', (req, res) => {
-   res.sendFile("/Users/erikmatsegard/Desktop/server" + '/index.html')
-})
+    res.send('We are home');
+});
 
-app.post('/quotes', (req, res) => {
-   console.log(req.body)
-   res.send(req.body)
-})
 
-MongoClient.connect('mongodb-connection-string', (err, client) => {
-  console.log('hej')
-})
+//Connect to mongoose
+mongoose.connect(
+process.env.DB_CONNECTION, { useNewUrlParser: true }, () =>
+console.log('Connected to mongoDB'));
+
 
 app.listen(port, () => {
   console.log('listening on: ' + port)
 })
+
+
