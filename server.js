@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 5500;
 const mongoose = require('mongoose');
 require('dotenv/config')
 
@@ -12,8 +12,7 @@ app.use('/posts', postsRoute);
 app.use('/user', usersRoute);
 
 app.get('/', (req, res) => {
-    res.send('We are home');
-});
+res.send("hello wworld")});
 
 
 //Connect to mongoose
